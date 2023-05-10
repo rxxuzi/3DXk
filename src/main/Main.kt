@@ -1,4 +1,4 @@
-package main2_8
+package main
 
 import java.awt.Toolkit
 import javax.swing.JFrame
@@ -19,6 +19,7 @@ object Main {
     fun main(args: Array<String>) {
         val jf = JFrame()
         val Panel = Screen()
+        val Menu = Menu()
         if (Debug) {
             jf.setSize(1000, 1000)
             jf.add(Menu())

@@ -1,4 +1,4 @@
-package main2_8
+package main
 
 import java.awt.Color
 import java.awt.Font
@@ -9,7 +9,7 @@ import javax.swing.JPanel
 //import  io.KeyHandler;
 class Menu : JPanel() {
     var path = "./rsc/BlueFlame.png"
-    var font: Font? = null
+//    var font = Font("Arial", Font.BOLD, 20)
     var img = Toolkit.getDefaultToolkit().getImage(path)
 
     init {
@@ -26,11 +26,11 @@ class Menu : JPanel() {
 
     private fun draw(g: Graphics) {
         g.drawImage(img, 0, 0, this)
-        font = Font("Arial", Font.BOLD, 20)
+//        font = Font("Arial", Font.BOLD, 20)
         g.font = font
         g.drawString(System.currentTimeMillis().toString() + "ms", 10, 20)
-        font = Font("Arial", Font.BOLD, 50)
-        g.font = font
+//        font = Font("Arial", Font.BOLD, 50)
+//        g.font = font
         g.color = Color.GREEN
         val l = 100
         val x = (Math.cos(t) * 2 * l).toInt() + width / 2 - l

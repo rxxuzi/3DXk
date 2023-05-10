@@ -1,6 +1,6 @@
-package main2_8
+package main
 
-import main2_8.Calculator.VectorInfo
+import main.Calculator.VectorInfo
 import java.awt.*
 import java.awt.event.*
 import java.awt.image.BufferedImage

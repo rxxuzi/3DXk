@@ -1,4 +1,4 @@
-package main2_8
+package main
 
 class Vector(x: Double, y: Double, z: Double) {
     var x = 0.0

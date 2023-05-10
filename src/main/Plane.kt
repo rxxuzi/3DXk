@@ -1,4 +1,4 @@
-package main2_8
+package main
 
 class Plane {
     var V1: Vector

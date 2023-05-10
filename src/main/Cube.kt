@@ -1,13 +1,17 @@
-package main2_8
+package main
 
 import java.awt.Color
 
-public class Pyramid(x: Double, y: Double, z: Double, dx: Double, dy: Double, dz: Double, color: Color) {
+class Cube(x: Double, y: Double, z: Double, dx: Double, dy: Double, dz: Double, color: Color) {
     //ç¿ïW
+    @JvmField
     var x: Double
+    @JvmField
     var y: Double
     var z: Double
+    @JvmField
     var dx: Double
+    @JvmField
     var dy: Double
     var dz: Double
     var rotation = Math.PI * 0.75
@@ -21,15 +25,12 @@ public class Pyramid(x: Double, y: Double, z: Double, dx: Double, dy: Double, dz
     var x2 = 0.0
     var x3 = 0.0
     var x4 = 0.0
-    var x5 = 0.0
     var y1 = 0.0
     var y2 = 0.0
     var y3 = 0.0
     var y4 = 0.0
-    var y5 = 0.0
-
-    //É|ÉäÉSÉìäiî[ÉNÉâÉX
-    var Polys = arrayOfNulls<DPolygon>(5)
+    @JvmField
+    var Polys = arrayOfNulls<DPolygon>(6)
 
     //äpìxÇé˚î[Ç∑ÇÈîzóÒ
     lateinit var angle: DoubleArray
@@ -41,18 +42,20 @@ public class Pyramid(x: Double, y: Double, z: Double, dx: Double, dy: Double, dz
 
     //ç¿ïWÇ∆êFèÓïÒÇ©ÇÁÉ|ÉäÉSÉìÇê∂ê¨
     init {
+        Polys[0] = DPolygon(doubleArrayOf(x, a, a, x), doubleArrayOf(y, y, b, b), doubleArrayOf(z, z, z, z), color, false)
+        Polys[1] = DPolygon(doubleArrayOf(x, a, a, x), doubleArrayOf(y, y, b, b), doubleArrayOf(c, c, c, c), color, false)
+        Polys[2] = DPolygon(doubleArrayOf(x, x, x, x), doubleArrayOf(y, y, b, b), doubleArrayOf(z, c, c, z), color, false)
+        Polys[3] = DPolygon(doubleArrayOf(a, a, a, a), doubleArrayOf(y, y, b, b), doubleArrayOf(z, c, c, z), color, false)
+        Polys[4] = DPolygon(doubleArrayOf(x, x, a, a), doubleArrayOf(y, y, y, y), doubleArrayOf(z, c, c, z), color, false)
+        Polys[5] = DPolygon(doubleArrayOf(x, x, a, a), doubleArrayOf(b, b, b, b), doubleArrayOf(z, c, c, z), color, false)
 
-        //double h = Math.sqrt(3) * c / 2 ;
-        Polys[0] = DPolygon(doubleArrayOf(x, x + dx, x + dx, x), doubleArrayOf(y, y, y + dy, y + dy), doubleArrayOf(z, z, z, z), color, false)
-        Polys[1] = DPolygon(doubleArrayOf(x, x, x + dx), doubleArrayOf(y, y, y, y), doubleArrayOf(z, z + dz, z + dz), color, false)
-        Polys[2] = DPolygon(doubleArrayOf(x + dx, x + dx, x + dx), doubleArrayOf(y, y, y + dy), doubleArrayOf(z, z + dz, z + dz), color, false)
-        Polys[3] = DPolygon(doubleArrayOf(x, x, x + dx), doubleArrayOf(y + dy, y + dy, y + dy), doubleArrayOf(z, z + dz, z + dz), color, false)
-        Polys[4] = DPolygon(doubleArrayOf(x, x, x), doubleArrayOf(y, y, y + dy), doubleArrayOf(z, z + dz, z + dz), color, false)
-        Screen.DPolygons.add(Polys[0]!!)
-        Screen.DPolygons.add(Polys[1]!!)
-        Screen.DPolygons.add(Polys[2]!!)
-        Screen.DPolygons.add(Polys[3]!!)
-        Screen.DPolygons.add(Polys[4]!!)
+        //Screen.javaÇÃDPolygons<List>Ç…ì]ëó
+        Polys[0]?.let { Screen.DPolygons.add(it) }
+        Polys[1]?.let { Screen.DPolygons.add(it) }
+        Polys[2]?.let { Screen.DPolygons.add(it) }
+        Polys[3]?.let { Screen.DPolygons.add(it) }
+        Polys[4]?.let { Screen.DPolygons.add(it) }
+        Polys[5]?.let { Screen.DPolygons.add(it) }
 
         //ÉCÉìÉXÉ^ÉìÉXïœêîÇ…ë„ì¸
         this.color = color
@@ -108,44 +111,44 @@ public class Pyramid(x: Double, y: Double, z: Double, dx: Double, dy: Double, dz
     }
 
     fun updatePoly() {
-        for (poly in Polys) {
-            Screen.DPolygons.add(poly!!)
-            Screen.DPolygons.remove(poly)
+        for (i in 0..5) {
+            Polys[i]?.let { Screen.DPolygons.add(it) }
+            Screen.DPolygons.remove(Polys[i])
         }
         val radius = Math.sqrt(dx * dx + dy * dy)
         x1 = x + dx * 0.5 + radius * 0.5 * Math.cos(rotation + RotAdd[0])
         x2 = x + dx * 0.5 + radius * 0.5 * Math.cos(rotation + RotAdd[1])
         x3 = x + dx * 0.5 + radius * 0.5 * Math.cos(rotation + RotAdd[2])
         x4 = x + dx * 0.5 + radius * 0.5 * Math.cos(rotation + RotAdd[3])
-        x5 = x + dx * 0.5
         y1 = y + dy * 0.5 + radius * 0.5 * Math.sin(rotation + RotAdd[0])
         y2 = y + dy * 0.5 + radius * 0.5 * Math.sin(rotation + RotAdd[1])
         y3 = y + dy * 0.5 + radius * 0.5 * Math.sin(rotation + RotAdd[2])
         y4 = y + dy * 0.5 + radius * 0.5 * Math.sin(rotation + RotAdd[3])
-        y5 = y + dy * 0.5
         Polys[0]!!.x = doubleArrayOf(x1, x2, x3, x4)
         Polys[0]!!.y = doubleArrayOf(y1, y2, y3, y4)
         Polys[0]!!.z = doubleArrayOf(z, z, z, z)
-        Polys[1]!!.x = doubleArrayOf(x1, x5, x2)
-        Polys[1]!!.y = doubleArrayOf(y1, y5, y2)
-        Polys[1]!!.z = doubleArrayOf(z, z + dz, z)
-        Polys[2]!!.x = doubleArrayOf(x3, x2, x5)
-        Polys[2]!!.y = doubleArrayOf(y3, y2, y5)
-        Polys[2]!!.z = doubleArrayOf(z, z, z + dz)
-        Polys[3]!!.x = doubleArrayOf(x3, x5, x4)
-        Polys[3]!!.y = doubleArrayOf(y3, y5, y4)
-        Polys[3]!!.z = doubleArrayOf(z, z + dz, z)
-        Polys[4]!!.x = doubleArrayOf(x1, x4, x5)
-        Polys[4]!!.y = doubleArrayOf(y1, y4, y5)
-        Polys[4]!!.z = doubleArrayOf(z, z, z + dz)
+        Polys[1]!!.x = doubleArrayOf(x4, x3, x2, x1)
+        Polys[1]!!.y = doubleArrayOf(y4, y3, y2, y1)
+        Polys[1]!!.z = doubleArrayOf(z + dz, z + dz, z + dz, z + dz)
+        Polys[2]!!.x = doubleArrayOf(x1, x1, x2, x2)
+        Polys[2]!!.y = doubleArrayOf(y1, y1, y2, y2)
+        Polys[2]!!.z = doubleArrayOf(z, z + dz, z + dz, z)
+        Polys[3]!!.x = doubleArrayOf(x2, x2, x3, x3)
+        Polys[3]!!.y = doubleArrayOf(y2, y2, y3, y3)
+        Polys[3]!!.z = doubleArrayOf(z, z + dz, z + dz, z)
+        Polys[4]!!.x = doubleArrayOf(x3, x3, x4, x4)
+        Polys[4]!!.y = doubleArrayOf(y3, y3, y4, y4)
+        Polys[4]!!.z = doubleArrayOf(z, z + dz, z + dz, z)
+        Polys[5]!!.x = doubleArrayOf(x4, x4, x1, x1)
+        Polys[5]!!.y = doubleArrayOf(y4, y4, y1, y1)
+        Polys[5]!!.z = doubleArrayOf(z, z + dz, z + dz, z)
     }
 
-    @Suppress("unused")
-    fun removePyramid() {
-        for (i in Polys.indices) {
+    fun removeCube() {
+        for (i in 0..5) {
             Screen.DPolygons.remove(Polys[i])
         }
-        Screen.Pyramid.remove(this)
+        Screen.Cube.remove(this)
     }
 
     companion object {
